@@ -11,11 +11,11 @@ const useValidation = (initialValue) => {
   const isEmailValid =
   inputName.trim() !== "" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inputName);
   const hasEmailError = !isEmailValid && isTouched;
-  const isFirstNameValid = inputName.trim() !== "";
-  const hasFirstNameError = !isFirstNameValid && isTouched;
+  const isNameValid = inputName.trim() !== "";
+  const hasNameError = !isNameValid && isTouched;
   const isPasswordValid = inputName.length>8;
   const hasPasswordError = !isPasswordValid && isTouched;
 
-  return [inputName, inputChangeHandler, inputBlurHandler, hasEmailError,hasFirstNameError,hasPasswordError ];
+  return [inputName, inputChangeHandler, inputBlurHandler, hasEmailError,hasNameError,hasPasswordError ];
 };
 export default useValidation;
