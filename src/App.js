@@ -2,63 +2,39 @@ import React from "react";
 import Input from "./components/Input";
 import useValidation from "./hooks/useValidation";
 
-
-
 export default function App() {
-  const [
-    firstName,
-    firstNameChangeHandler,
-    firstNameBlurHandler,
-    ,
-    hasFirstNameError
-  ] = useValidation("");
-  const [
-    email,
-    emailChangeHandler,
-    emailBlurHandler,
-    hasEmailError
-  ] = useValidation("");
-  const [
-    password,
-    passwordChangeHandler,
-    passwordBlurHandler,
-    ,
-    ,
-    hasPasswordError
-  ] = useValidation("");
+  const { handleChange, values, inputBlurHandler, errors } = useValidation();
+  console.log(values);
   return (
     <div className="App">
       <Input
-        id="firstname"
         type="text"
-        value={firstName}
-        onChange={firstNameChangeHandler}
-        onBlur={firstNameBlurHandler}
-        errMessage={"Please input your first name."}
-        hasError={hasFirstNameError}
-        placeholder="First Name"
+        name="username"
+        placeholder="Enter your username"
+        value={values.username}
+        onChange={handleChange}
+        onBlur={inputBlurHandler}
       />
+      {errors.username && <p>{errors.username}</p>}
       <Input
-        id="email"
         type="email"
-        value={email}
-        onChange={emailChangeHandler}
-        onBlur={emailBlurHandler}
-        errMessage={"Please input valid email."}
-        hasError={hasEmailError}
-        placeholder="Email"
+        name="email"
+        placeholder="Enter your email"
+        value={values.email}
+        onChange={handleChange}
+        onBlur={inputBlurHandler}
       />
+
+      {errors.email && <p>{errors.email}</p>}
       <Input
-        id="password"
         type="password"
-        value={password}
-        onChange={passwordChangeHandler}
-        onBlur={passwordBlurHandler}
-        errMessage={"Please input valid Password."}
-        hasError={hasPasswordError}
-        placeholder="Password"
+        name="password"
+        placeholder="Enter your password"
+        value={values.password}
+        onChange={handleChange}
+        onBlur={inputBlurHandler}
       />
+      {errors.password && <p>{errors.password}</p>}
     </div>
   );
 }
-

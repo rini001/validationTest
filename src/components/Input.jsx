@@ -1,9 +1,4 @@
 const Input = (props) => {
-    let errMessage = "";
-    if (props.hasError) {
-      errMessage = <p style={{color:"red"}}>{props.errMessage}</p>;
-    }
-  
     return (
       <div>
         <input
@@ -11,11 +6,11 @@ const Input = (props) => {
           type={props.type || "text"}
           id={props.id}
           value={props.value}
+          name={props.name}
           onChange={props.onChange}
           onBlur={props.onBlur}
           autoComplete="nope" //added randome string as off was not working in chorme
         />
-        {errMessage}
       </div>
     );
   };

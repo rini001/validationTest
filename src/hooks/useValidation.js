@@ -1,21 +1,36 @@
 import { useState } from "react";
-const useValidation = (initialValue) => {
-  const [inputName, setInputName] = useState(initialValue);
+const useValidation = () => {
+  const [values, setValues] = useState({
+    username: '',
+    email: '',
+    password: '',
+    password2: ''
+  });
   const [isTouched, setIsTouched] = useState(false);
-  const inputChangeHandler = (e) => {
-    setInputName(e.target.value);
+  let errors = {};
+  if (!values.username.trim() && isTouched) {
+    errors.username = 'Username required';
+  }
+  if (!values.email && isTouched) {
+    errors.email = 'Email required';
+  } else if (!/\S+@\S+\.\S+/.test(values.email) &&  isTouched) {
+    errors.email = 'Email address is invalid';
+  }
+  if (!values.password && isTouched) {
+    errors.password = 'Password is required';
+  } else if (values.password.length < 6 && isTouched) {
+    errors.password = 'Password needs to be 6 characters or more';
+  }
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setValues({
+      ...values,
+      [name]: value
+    });
   };
   const inputBlurHandler = (e) => {
     setIsTouched(true);
   };
-  const isEmailValid =
-  inputName.trim() !== "" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inputName);
-  const hasEmailError = !isEmailValid && isTouched;
-  const isNameValid = inputName.trim() !== "";
-  const hasNameError = !isNameValid && isTouched;
-  const isPasswordValid = inputName.length>8;
-  const hasPasswordError = !isPasswordValid && isTouched;
-
-  return [inputName, inputChangeHandler, inputBlurHandler, hasEmailError,hasNameError,hasPasswordError ];
+  return {handleChange,values,inputBlurHandler,errors}
 };
 export default useValidation;
